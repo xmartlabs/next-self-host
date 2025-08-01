@@ -1,11 +1,11 @@
-import { addTodoAction, deleteTodoAction } from './actions';
-import { db } from './drizzle';
-import { todos } from './schema';
+import { addTodoAction, deleteTodoAction } from '@/lib/db/actions';
+import { getDb } from '@/lib/db/drizzle';
+import { todos } from '@/lib/db/schema';
 
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  let todoList = await db.select().from(todos).orderBy(todos.createdAt);
+  let todoList = await getDb().select().from(todos).orderBy(todos.createdAt);
 
   return (
     <div>

@@ -1,18 +1,18 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { db } from './drizzle';
+import { getDb } from './drizzle';
 import { todos } from './schema';
 import { eq } from 'drizzle-orm';
 
 export async function addTodoAction(formData: FormData) {
   const content = formData.get('content') as string;
-  await db.insert(todos).values({ content });
-  revalidatePath('/db');
+  await getDb().insert(todos).values({ content });
+  revalidatePath('/todos');
 }
 
 export async function deleteTodoAction(formData: FormData) {
   const id = formData.get('id') as string;
-  await db.delete(todos).where(eq(todos.id, Number(id)));
-  revalidatePath('/db');
+  await getDb().delete(todos).where(eq(todos.id, Number(id)));
+  revalidatePath('/todos');
 }

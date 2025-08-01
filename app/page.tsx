@@ -199,7 +199,7 @@ export default async function Home() {
       </p>
       <p>
         This value was read from <code>process.env</code>:{' '}
-        <code>{secretKey}</code>
+        <code>{secretKey ? '***SECRET_SET***' : 'SECRET_NOT_SET'}</code>
       </p>
       <p>
         <a href="https://nextjs.org/docs/app/building-your-application/deploying#environment-variables">

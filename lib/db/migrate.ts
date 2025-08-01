@@ -1,16 +1,16 @@
 import dotenv from 'dotenv';
 import path from 'path';
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
-import { client, db } from './drizzle';
+import { getClient, getDb } from './drizzle';
 
 dotenv.config();
 
 async function main() {
-  await migrate(db, {
+  await migrate(getDb(), {
     migrationsFolder: path.join(process.cwd(), './lib/db/migrations'),
   });
   console.log(`Migrations complete`);
-  await client.end();
+  await getClient().end();
 }
 
 main();
