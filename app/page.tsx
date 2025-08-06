@@ -98,7 +98,7 @@ export default async function Home() {
         </a>
       </p>
       <p>
-        <a href="/db">View the demo</a>
+        <a href="/todos">View the demo</a>
       </p>
 
       <h3>Caching / Incremental Static Regeneration</h3>
