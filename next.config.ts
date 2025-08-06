@@ -2,8 +2,7 @@ import type { NextConfig } from 'next';
 // import path from 'path';
 
 const nextConfig: NextConfig = {
-  // Comment out standalone for now to get Amplify working
-  // output: 'standalone',
+  // No output configuration - use default for SSR
   images: {
     remotePatterns: [
       {

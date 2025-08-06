@@ -1,22 +1,21 @@
+'use client';
+
 import Image from 'next/image';
-import { connection } from 'next/server';
+import { useEffect, useState } from 'react';
 
-async function getPokemon() {
-  await connection();
+export default function Home() {
+  const [pokemon, setPokemon] = useState<any>(null);
+  const secretKey = process.env.NEXT_PUBLIC_SECRET_KEY; // Must be NEXT_PUBLIC_ for client-side
 
-  let apiKey = global.secrets.apiKey || 'None for demo';
-  let randomNumber = Math.floor(Math.random() * 100) + 1;
-
-  return await fetch(`https://api.vercel.app/pokemon/${randomNumber}`, {
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-    },
-  }).then((r) => r.json());
-}
-
-export default async function Home() {
-  let secretKey = process.env.SECRET_KEY;
-  let pokemon = await getPokemon();
+  useEffect(() => {
+    async function fetchPokemon() {
+      const randomNumber = Math.floor(Math.random() * 100) + 1;
+      const response = await fetch(`https://api.vercel.app/pokemon/${randomNumber}`);
+      const data = await response.json();
+      setPokemon(data);
+    }
+    fetchPokemon();
+  }, []);
 
   return (
     <section>
@@ -28,7 +27,7 @@ export default async function Home() {
       </p>
 
       <h3>Data Fetching</h3>
-      <p>Random Pokemon: {pokemon.name}</p>
+      <p>Random Pokemon: {pokemon?.name || 'Loading...'}</p>
       <p>
         This value was retrieved with <code>fetch</code> from an API. This page
         is served dynamically, fetching a random Pokemon on each request. Reload
