@@ -6,6 +6,18 @@ This repo shows how to deploy a Next.js app and a PostgreSQL database on a Ubunt
 
 [![Self Hosting Video Thumbnail](https://img.youtube.com/vi/sIVL4JMqRfc/0.jpg)](https://www.youtube.com/watch?v=sIVL4JMqRfc)
 
+## Push to ECR
+If you only want to push it to ECR to run it in AppRunner, you can just use the `push_to_ecr.sh` script:
+```sh
+DB_USER=...
+DB_PASSWORD=...
+DB_HOST=...
+DB_NAME=...
+
+echo "DATABASE_URL=postgres://${DB_HOST}:${DB_PASSWORD}@${DB_HOST}:5432/${DB_NAME}" >> .env
+./push_to_ecr.sh {ecr_registry} {ecr_repository}
+```
+
 ## Prerequisites
 
 1. Purchase a domain name
